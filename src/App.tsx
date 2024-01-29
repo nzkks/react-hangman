@@ -40,6 +40,8 @@ function App() {
     };
   }, []);
 
+  const isLoser = incorrectLetters.length >= 6;
+
   return (
     <div
       style={{
@@ -51,7 +53,7 @@ function App() {
         alignItems: 'center'
       }}
     >
-      <div style={{ fontSize: '2rem', textAlign: 'center' }}>Lose Win</div>
+      <div style={{ fontSize: '2rem', textAlign: 'center' }}>{isLoser ? 'Nice try! - Refresh to try again' : ''}</div>
 
       <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
       <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
