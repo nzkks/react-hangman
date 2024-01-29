@@ -29,12 +29,18 @@ const KEYS = [
   'z'
 ];
 
-export function HangmanKeyboard() {
+type keyboardProps = {
+  activeLetters: string[];
+  inactiveLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+};
+
+export function HangmanKeyboard({ activeLetters, inactiveLetters, addGuessedLetter }: keyboardProps) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(75px, 1fr))', gap: '.5rem' }}>
       {KEYS.map(key => {
         return (
-          <button className={`${styles.btn}`} key={key}>
+          <button onClick={() => addGuessedLetter(key)} className={`${styles.btn}`} key={key}>
             {key}
           </button>
         );
