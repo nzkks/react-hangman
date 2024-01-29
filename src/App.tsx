@@ -14,13 +14,16 @@ function App() {
 
   const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter));
 
+  const isLoser = incorrectLetters.length >= 6;
+  const isWinner = wordToGuess.split('').every(letter => guessedLetters.includes(letter));
+
   const addGuessedLetter = useCallback(
     (letter: string) => {
-      if (guessedLetters.includes(letter)) return;
+      if (guessedLetters.includes(letter) || isLoser || isWinner) return;
 
       setGuessedLetters(currentLetters => [...currentLetters, letter]);
     },
-    [guessedLetters]
+    [guessedLetters, isLoser, isWinner]
   );
 
   useEffect(() => {
@@ -38,10 +41,7 @@ function App() {
     return () => {
       document.removeEventListener('keypress', handler);
     };
-  }, []);
-
-  const isLoser = incorrectLetters.length >= 6;
-  const isWinner = wordToGuess.split('').every(letter => guessedLetters.includes(letter));
+  }, [guessedLetters]);
 
   return (
     <div
