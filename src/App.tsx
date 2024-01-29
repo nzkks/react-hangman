@@ -41,6 +41,7 @@ function App() {
   }, []);
 
   const isLoser = incorrectLetters.length >= 6;
+  const isWinner = wordToGuess.split('').every(letter => guessedLetters.includes(letter));
 
   return (
     <div
@@ -53,7 +54,10 @@ function App() {
         alignItems: 'center'
       }}
     >
-      <div style={{ fontSize: '2rem', textAlign: 'center' }}>{isLoser ? 'Nice try! - Refresh to try again' : ''}</div>
+      <div style={{ fontSize: '2rem', textAlign: 'center' }}>
+        {isWinner && 'Winner! - Refresh to try again'}
+        {isLoser && 'Nice try! - Refresh to try again'}
+      </div>
 
       <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
       <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
