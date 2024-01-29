@@ -30,12 +30,13 @@ const KEYS = [
 ];
 
 type keyboardProps = {
+  disabled?: boolean;
   activeLetters: string[];
   inactiveLetters: string[];
   addGuessedLetter: (letter: string) => void;
 };
 
-export function HangmanKeyboard({ activeLetters, inactiveLetters, addGuessedLetter }: keyboardProps) {
+export function HangmanKeyboard({ disabled = false, activeLetters, inactiveLetters, addGuessedLetter }: keyboardProps) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(75px, 1fr))', gap: '.5rem' }}>
       {KEYS.map(key => {
@@ -46,7 +47,7 @@ export function HangmanKeyboard({ activeLetters, inactiveLetters, addGuessedLett
           <button
             onClick={() => addGuessedLetter(key)}
             className={`${styles.btn} ${isActive ? styles.active : ''} ${isInactive ? styles.inactive : ''}`}
-            disabled={isInactive || isActive}
+            disabled={isInactive || isActive || disabled}
             key={key}
           >
             {key}
